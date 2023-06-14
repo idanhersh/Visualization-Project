@@ -1,11 +1,8 @@
-!pip install streamlit
-! pip install plotly_express
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
-import streamlit.components.v1 as components
 
 
 
@@ -20,6 +17,7 @@ df['DayType'] = df['DayOfWeek'].apply(lambda x: 'Weekday' if x in ['Monday', 'Tu
 df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
 # Extract the hour number into a new column
 df['Wakeup Hour'] = df['Wakeup time'].dt.hour
+df['Sleep efficiency'] = pd.to_numeric(df['Sleep efficiency'], errors='coerce')
 
 
 st.set_page_config(page_title="How does sleep efficiency vary by age, sex, or other variables?",
@@ -72,7 +70,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 #Third Graph
 # Define the columns for the line plot
-st.subheader('Sleep Efficiency by Number of Sleep Hours and Weekly Habits')
+st.subheader('Sleep Efficiency by Number of Sleep Hours and weekly Habits')
 x_column = 'Sleep duration'
 y_column = 'Sleep efficiency'
 
@@ -115,15 +113,39 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
-# Create a density plot
-fig, ax = plt.subplots()
+import plotly.graph_objects as go
+
+# Create a density plot for each selected day
+fig = go.Figure()
+
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
-    sns.kdeplot(data=data, x='Sleep efficiency', shade=True, label=day)
 
-ax.set_xlabel('Sleep Efficiency')
-ax.set_ylabel('Density')
-#ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
-ax.legend()
-st.pyplot(fig)
+    # Create a density trace for the current day
+    density_trace = go.Scatter(x=data['Sleep efficiency'], y=data['Sleep efficiency'].apply(lambda x: 0.01),
+                               mode='lines', fill='tozeroy', name=day)
+
+    # Add the density trace to the figure
+    fig.add_trace(density_trace)
+
+# Configure the layout
+fig.update_layout(xaxis_title='Sleep Efficiency', yaxis_title='Density',
+                  title='Sleep Efficiency Distribution: Weekdays vs. Weekends')
+
+# Display the figure
+st.plotly_chart(fig)
+
+# # Create a density plot
+# fig, ax = plt.subplots()
+# for day in selected_days:
+#     data = selected_data[selected_data['DayType'] == day]
+#     sns.kdeplot(data=data, x='Sleep efficiency', shade=True, label=day)
+#
+# ax.set_xlabel('Sleep Efficiency')
+# ax.set_ylabel('Density')
+# #ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
+# ax.legend()
+# st.pyplot(fig)
