@@ -114,38 +114,18 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
-# fig, ax = plt.subplots()
-# for day in selected_days:
-#     data = selected_data[selected_data['DayType'] == day]
-#     density = data['Sleep efficiency'].plot.kde()
-#     density.set_label(day)
-
-# ax.set_xlabel('Sleep Efficiency')
-# ax.set_ylabel('Density')
-# # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
-# ax.legend()
-# st.pyplot(fig)
 fig, ax = plt.subplots()
-kde_plots = []
-legend_labels = {}  # Dictionary to map KDE plots to legend labels
-
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
     density = data['Sleep efficiency'].plot.kde()
-    kde_plots.append(density)
-    
-    if day == 'Weekdays':
-        legend_labels[density] = 'Weekdays'
-    elif day == 'Weekends':
-        legend_labels[density] = 'Weekends'
+    density.set_label(day)
 
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
-
-# Create the legend with custom labels
-ax.legend(legend_labels.values(), legend_labels.keys())
-
+# ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
+ax.legend(labels=['Weekdays','Weekends'])
 st.pyplot(fig)
+
 
 
 
