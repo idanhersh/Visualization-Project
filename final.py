@@ -155,8 +155,19 @@ for day in selected_days:
     density = data['Sleep efficiency'].plot.kde()
     density.set_label(day)
 
+    x = data['Sleep efficiency']
+    y = density.evaluate(x)
+    ax.fill_between(x, y, alpha=0.5)
+
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
 # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend()
 st.pyplot(fig)
+
+
+
+
+
+
+
