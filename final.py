@@ -2,8 +2,6 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
-import seaborn as sns
-from scipy.stats import gaussian_kde
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
@@ -116,11 +114,10 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
-# colors= ['red','yellow']
 fig, ax = plt.subplots()
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
-    density = data['Sleep efficiency'].plot.kde(fill=True)
+    density = data['Sleep efficiency'].plot.kde()
     density.set_label(day)
 
 ax.set_xlabel('Sleep Efficiency')
