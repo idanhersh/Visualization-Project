@@ -1,9 +1,12 @@
+!pip install streamlit
+! pip install plotly_express
 import streamlit as st
 import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit.components.v1 as components
+
 
 
 df = pd.read_csv('Sleep_Efficiency.csv')
