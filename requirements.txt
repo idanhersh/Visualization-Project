@@ -56,6 +56,7 @@ decorator==4.4.2
 defusedxml==0.6.0
 diff-match-patch @ file:///tmp/build/80754af9/diff-match-patch_1594828741838/work
 distributed @ file:///C:/ci/distributed_1594742844291/work
+docopt==0.6.2
 docutils==0.16
 entrypoints==0.3
 et-xmlfile==1.0.1
@@ -164,6 +165,7 @@ pep8==1.7.1
 pexpect==4.8.0
 pickleshare==0.7.5
 Pillow==9.5.0
+pipreqs==0.4.13
 pkginfo==1.5.0.1
 plotly==5.15.0
 plotly-express==0.4.1
@@ -195,7 +197,6 @@ pyparsing==2.4.7
 pyreadline==2.1
 pyrsistent==0.16.0
 PySocks==1.7.1
-pystan==2.19.1.1
 pytest==5.4.3
 python-dateutil==2.8.1
 python-jsonrpc-server @ file:///tmp/build/80754af9/python-jsonrpc-server_1594397536060/work
@@ -295,6 +296,7 @@ xlwings==0.19.5
 xlwt==1.3.0
 xmltodict==0.12.0
 yapf @ file:///tmp/build/80754af9/yapf_1593528177422/work
+yarg==0.1.9
 yfinance==0.1.70
 zict==2.0.0
 zipp==3.1.0
