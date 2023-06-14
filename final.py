@@ -6,7 +6,7 @@ import seaborn as sns
 import streamlit.components.v1 as components
 
 
-df = pd.read_csv('/content/Sleep_Efficiency.csv')
+df = pd.read_csv('Sleep_Efficiency.csv')
 # Convert bedtime and wakeup time columns to datetime format
 df['Bedtime'] = pd.to_datetime(df['Bedtime'])
 df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
