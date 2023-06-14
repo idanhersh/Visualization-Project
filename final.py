@@ -4,6 +4,8 @@ import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import gaussian_kde
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 
 
 
@@ -114,20 +116,17 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
+
+User
 fig, ax = plt.subplots()
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
-    sleep_efficiency = data['Sleep efficiency']
-    density = gaussian_kde(sleep_efficiency)
-    x = np.linspace(sleep_efficiency.min(), sleep_efficiency.max(), 100)
-    y = density(x)
-    ax.plot(x, y, label=day)
-    ax.fill_between(x, y, alpha=0.5)
+    density = data['Sleep efficiency'].plot.kde()
+    density.set_label(day)
 
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
+# ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend()
 st.pyplot(fig)
 
