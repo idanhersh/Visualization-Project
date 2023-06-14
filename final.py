@@ -123,7 +123,7 @@ for day in selected_days:
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
 # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
-ax.legend(labels=['Weekdays','Weekends'])
+ax.legend(labels=['Weekend','Weekday'])
 st.pyplot(fig)
 
 
