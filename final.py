@@ -3,6 +3,7 @@ import pandas as pd
 import plotly.express as px
 import matplotlib.pyplot as plt
 import seaborn as sns
+from scipy.stats import gaussian_kde
 
 
 
@@ -115,53 +116,18 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 selected_data = df[df['DayType'].isin(selected_days)]
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-
-import plotly.graph_objects as go
-
-# # Create a density plot for each selected day
-# fig = go.Figure()
-
-# for day in selected_days:
-#     data = selected_data[selected_data['DayType'] == day]
-
-#     # Create a density trace for the current day
-#     density_trace = go.Scatter(x=data['Sleep efficiency'], y=data['Sleep efficiency'].apply(lambda x: 0.01),
-#                                mode='lines', fill='tozeroy', name=day)
-
-#     # Add the density trace to the figure
-#     fig.add_trace(density_trace)
-
-# # Configure the layout
-# fig.update_layout(xaxis_title='Sleep Efficiency', yaxis_title='Density',
-#                   title='Sleep Efficiency Distribution: Weekdays vs. Weekends')
-
-# # Display the figure
-# st.plotly_chart(fig)
-
-# # Create a density plot
-# fig, ax = plt.subplots()
-# for day in selected_days:
-#     data = selected_data[selected_data['DayType'] == day]
-#     sns.kdeplot(data=data, x='Sleep efficiency', shade=True, label=day)
-
-# ax.set_xlabel('Sleep Efficiency')
-# ax.set_ylabel('Density')
-# #ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
-# ax.legend()
-# st.pyplot(fig)
 fig, ax = plt.subplots()
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
-    density = data['Sleep efficiency'].plot.kde()
-    density.set_label(day)
-
-    x = data['Sleep efficiency']
-    y = density.evaluate(x)
+    sleep_efficiency = data['Sleep efficiency']
+    density = gaussian_kde(sleep_efficiency)
+    x = np.linspace(sleep_efficiency.min(), sleep_efficiency.max(), 100)
+    y = density(x)
+    ax.plot(x, y, label=day)
     ax.fill_between(x, y, alpha=0.5)
 
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
-# ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend()
 st.pyplot(fig)
 
