@@ -117,7 +117,6 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
 
-User
 fig, ax = plt.subplots()
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
