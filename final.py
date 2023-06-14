@@ -145,7 +145,7 @@ ax.set_ylabel('Density')
 # Create the legend with custom labels
 ax.legend(legend_labels.values(), legend_labels.keys())
 
-plt.show()
+st.pyplot(fig)
 
 
 
