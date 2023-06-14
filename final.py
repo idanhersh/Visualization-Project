@@ -117,10 +117,27 @@ selected_days = st.multiselect('Select Weekdays/Weekends', day_values)
 # Filter the data based on the selected days
 selected_data = df[df['DayType'].isin(selected_days)]
 
+# fig, ax = plt.subplots()
+# for day in selected_days:
+#     data = selected_data[selected_data['DayType'] == day]
+#     density = data['Sleep efficiency'].plot.kde()
+#     density.set_label(day)
+
+# ax.set_xlabel('Sleep Efficiency')
+# ax.set_ylabel('Density')
+# # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
+# ax.legend()
+# st.pyplot(fig)
+import numpy as np
+
 fig, ax = plt.subplots()
-for day in selected_days:
+
+colors = ['blue', 'green', 'red', 'purple']  # Define colors for each day
+
+for i, day in enumerate(selected_days):
     data = selected_data[selected_data['DayType'] == day]
     density = data['Sleep efficiency'].plot.kde()
+    density.fill_between(data['Sleep efficiency'], 0, density, color=colors[i], alpha=0.3)  # Color the area under the curve
     density.set_label(day)
 
 ax.set_xlabel('Sleep Efficiency')
@@ -128,6 +145,14 @@ ax.set_ylabel('Density')
 # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend()
 st.pyplot(fig)
+
+
+
+
+
+
+
+
 
 
 
