@@ -138,14 +138,25 @@ import plotly.graph_objects as go
 # # Display the figure
 # st.plotly_chart(fig)
 
-# Create a density plot
+# # Create a density plot
+# fig, ax = plt.subplots()
+# for day in selected_days:
+#     data = selected_data[selected_data['DayType'] == day]
+#     sns.kdeplot(data=data, x='Sleep efficiency', shade=True, label=day)
+
+# ax.set_xlabel('Sleep Efficiency')
+# ax.set_ylabel('Density')
+# #ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
+# ax.legend()
+# st.pyplot(fig)
 fig, ax = plt.subplots()
 for day in selected_days:
     data = selected_data[selected_data['DayType'] == day]
-    sns.kdeplot(data=data, x='Sleep efficiency', shade=True, label=day)
+    density = data['Sleep efficiency'].plot.kde()
+    density.set_label(day)
 
 ax.set_xlabel('Sleep Efficiency')
 ax.set_ylabel('Density')
-#ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
+# ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend()
 st.pyplot(fig)
