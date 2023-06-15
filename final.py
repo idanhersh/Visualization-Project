@@ -76,7 +76,7 @@ st.plotly_chart(fig, use_container_width=True)
 
 #Third Graph
 # Define the columns for the line plot
-st.subheader('Sleep Efficiency by Number of Sleep Hours and weekly Habits')
+st.subheader('Sleep Efficiency by Number of Sleep Hours and Weekly Habits')
 x_column = 'Sleep duration'
 y_column = 'Sleep efficiency'
 
