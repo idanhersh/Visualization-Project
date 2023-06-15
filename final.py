@@ -8,6 +8,10 @@ from plotly.subplots import make_subplots
 
 
 df = pd.read_csv('Sleep_Efficiency.csv')
+df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
+df['Caffeine consumption'] = df['Alcohol consumption'].fillna(0.0)
+df['Awakenings'] = df['Awakenings'].fillna(0.0)
+df['Exercise frequency'] = df['Exercise frequency'].fillna(0.0)
 # Convert bedtime and wakeup time columns to datetime format
 df['Bedtime'] = pd.to_datetime(df['Bedtime'])
 df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
@@ -19,6 +23,7 @@ df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
 # Extract the hour number into a new column
 df['Wakeup Hour'] = df['Wakeup time'].dt.hour
 df['Sleep efficiency'] = pd.to_numeric(df['Sleep efficiency'], errors='coerce')
+
 
 
 st.set_page_config(page_title="How does sleep efficiency vary by age, sex, or other variables?",
