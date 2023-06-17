@@ -7,28 +7,53 @@ from plotly.subplots import make_subplots
 
 
 
-df = pd.read_csv('Sleep_Efficiency.csv')
+import pandas as pd
+
+df = pd.read_csv('/content/Sleep_Efficiency.csv')
+
+# Fill NaN values in 'Alcohol consumption' column with 0.0
 df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
-df['Caffeine consumption'] = df['Caffeine consumption'].fillna(0.0)
+
+# Convert 'Caffeine consumption' column to numeric type and fill NaN values with 0.0
+df['Caffeine consumption'] = pd.to_numeric(df['Caffeine consumption'], errors='coerce').fillna(0.0)
+
+# Fill NaN values in 'Awakenings' column with 0.0
 df['Awakenings'] = df['Awakenings'].fillna(0.0)
+
+# Fill NaN values in 'Exercise frequency' column with 0.0
 df['Exercise frequency'] = df['Exercise frequency'].fillna(0.0)
-# Convert bedtime and wakeup time columns to datetime format
+
+# Convert 'Bedtime' column to datetime format
 df['Bedtime'] = pd.to_datetime(df['Bedtime'])
-df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
-df['DayOfWeek'] = df['Bedtime'].dt.day_name()
-# "DayType" column based on weekdays and weekends
-df['DayType'] = df['DayOfWeek'].apply(lambda x: 'Weekday' if x in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] else 'Weekend')
+
 # Convert 'Wakeup time' column to datetime format
 df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
-# Extract the hour number into a new column
+
+# Extract 'DayOfWeek' from 'Bedtime' column
+df['DayOfWeek'] = df['Bedtime'].dt.day_name()
+
+# Create 'DayType' column based on weekdays and weekends
+df['DayType'] = df['DayOfWeek'].apply(lambda x: 'Weekday' if x in ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] else 'Weekend')
+
+# Extract hour from 'Wakeup time' column into 'Wakeup Hour' column
 df['Wakeup Hour'] = df['Wakeup time'].dt.hour
+
+# Convert 'Sleep efficiency' column to numeric type
 df['Sleep efficiency'] = pd.to_numeric(df['Sleep efficiency'], errors='coerce')
+
+# Convert 'Bedtime' column to datetime format
+df['Bedtime'] = pd.to_datetime(df['Bedtime'])
+
+# Extract hour from 'Bedtime' column into 'Bedtime Hour' column
+df['Bedtime Hour'] = df['Bedtime'].dt.hour
+
+# Define the ranges and labels
 ranges = [0, 40, 80, 120, 160, 200]
-labels = [1.0, 2.0, 3.0, 4.0, 5.0]
+labels = [1, 2, 3, 4, 5]
+
 # Map the values to the corresponding labels
 df['Caffeine consumption'] = pd.cut(df['Caffeine consumption'], bins=ranges, labels=labels, right=False)
-
-
+df = df.dropna(subset=['Caffeine consumption'])
 
 st.set_page_config(page_title="How does sleep efficiency vary by age, sex, or other variables?",
                    page_icon=":bar_chart:")
