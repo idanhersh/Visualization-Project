@@ -23,6 +23,10 @@ df['Wakeup time'] = pd.to_datetime(df['Wakeup time'])
 # Extract the hour number into a new column
 df['Wakeup Hour'] = df['Wakeup time'].dt.hour
 df['Sleep efficiency'] = pd.to_numeric(df['Sleep efficiency'], errors='coerce')
+ranges = [0, 40, 80, 120, 160, 200]
+labels = [1.0, 2.0, 3.0, 4.0, 5.0]
+# Map the values to the corresponding labels
+df['Caffeine consumption'] = pd.cut(df['Caffeine consumption'], bins=ranges, labels=labels, right=False)
 
 
 
@@ -81,7 +85,7 @@ x_column = 'Sleep duration'
 y_column = 'Sleep efficiency'
 
 # Get unique values for the condition columns
-awakenings_values = df['Awakenings'].unique()
+coffee_values = df['Caffeine consumption'].unique()
 alcohol_values = df['Alcohol consumption'].unique()
 smoking_values = df['Smoking status'].unique()
 exercise_values = df['Exercise frequency'].unique()
@@ -90,12 +94,14 @@ exercise_values = df['Exercise frequency'].unique()
 #selected_awakenings = st.selectbox('Select Awakenings', awakenings_values)
 selected_alcohol = st.selectbox('Select Alcohol Consumption', alcohol_values)
 selected_smoking = st.selectbox('Select Smoking Status', smoking_values)
+selected_caffeine = st.selectbox('Select Daily Coffee Cups', coffee_values)
 selected_exercise = st.selectbox('Select Exercise Frequency', exercise_values)
 
 # Filter the dataframe based on user-selected conditions
 filtered_df = df[(df['Alcohol consumption'] == selected_alcohol) &
                 (df['Smoking status'] == selected_smoking) &
-                (df['Exercise frequency'] == selected_exercise)]
+                (df['Exercise frequency'] == selected_exercise)&
+                (df['Caffeine consumption'] == selected_caffeine)]
 
 # Create a scatter plot using Plotly Express
 fig = px.density_heatmap(filtered_df, x=x_column, y=y_column,
