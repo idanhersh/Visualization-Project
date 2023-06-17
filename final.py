@@ -9,7 +9,7 @@ from plotly.subplots import make_subplots
 
 df = pd.read_csv('Sleep_Efficiency.csv')
 df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
-df['Caffeine consumption'] = df['Alcohol consumption'].fillna(0.0)
+df['Caffeine consumption'] = df['Caffeine consumption'].fillna(0.0)
 df['Awakenings'] = df['Awakenings'].fillna(0.0)
 df['Exercise frequency'] = df['Exercise frequency'].fillna(0.0)
 # Convert bedtime and wakeup time columns to datetime format
