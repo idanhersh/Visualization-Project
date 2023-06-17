@@ -5,10 +5,6 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-
-
-import pandas as pd
-
 df = pd.read_csv('/content/Sleep_Efficiency.csv')
 
 # Fill NaN values in 'Alcohol consumption' column with 0.0
@@ -16,9 +12,6 @@ df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
 
 # Convert 'Caffeine consumption' column to numeric type and fill NaN values with 0.0
 df['Caffeine consumption'] = pd.to_numeric(df['Caffeine consumption'], errors='coerce').fillna(0.0)
-
-# Fill NaN values in 'Awakenings' column with 0.0
-df['Awakenings'] = df['Awakenings'].fillna(0.0)
 
 # Fill NaN values in 'Exercise frequency' column with 0.0
 df['Exercise frequency'] = df['Exercise frequency'].fillna(0.0)
@@ -49,7 +42,7 @@ df['Bedtime Hour'] = df['Bedtime'].dt.hour
 
 # Define the ranges and labels
 ranges = [0, 40, 80, 120, 160, 200]
-labels = [1, 2, 3, 4, 5]
+labels = [1.0, 2.0, 3.0, 4.0, 5.0]
 
 # Map the values to the corresponding labels
 df['Caffeine consumption'] = pd.cut(df['Caffeine consumption'], bins=ranges, labels=labels, right=False)
