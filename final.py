@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
-df = pd.read_csv('/content/Sleep_Efficiency.csv')
+df = pd.read_csv('Sleep_Efficiency.csv')
 
 # Fill NaN values in 'Alcohol consumption' column with 0.0
 df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
