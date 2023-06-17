@@ -103,7 +103,6 @@ x_column = 'Sleep duration'
 y_column = 'Sleep efficiency'
 
 # Get unique values for the condition columns
-coffee_values = df['Caffeine consumption'].unique()
 alcohol_values = df['Alcohol consumption'].unique()
 smoking_values = df['Smoking status'].unique()
 exercise_values = df['Exercise frequency'].unique()
@@ -112,14 +111,12 @@ exercise_values = df['Exercise frequency'].unique()
 #selected_awakenings = st.selectbox('Select Awakenings', awakenings_values)
 selected_alcohol = st.selectbox('Select Alcohol Consumption', alcohol_values)
 selected_smoking = st.selectbox('Select Smoking Status', smoking_values)
-selected_caffeine = st.selectbox('Select Daily Coffee Cups', coffee_values)
 selected_exercise = st.selectbox('Select Exercise Frequency', exercise_values)
 
 # Filter the dataframe based on user-selected conditions
 filtered_df = df[(df['Alcohol consumption'] == selected_alcohol) &
                 (df['Smoking status'] == selected_smoking) &
-                (df['Exercise frequency'] == selected_exercise)&
-                (df['Caffeine consumption'] == selected_caffeine)]
+                (df['Exercise frequency'] == selected_exercise)]
 
 # Create a scatter plot using Plotly Express
 fig = px.density_heatmap(filtered_df, x=x_column, y=y_column,
