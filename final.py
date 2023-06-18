@@ -150,20 +150,3 @@ ax.set_ylabel('Density')
 # ax.set_title('Sleep Efficiency Distribution: Weekdays vs. Weekends')
 ax.legend(labels=['Weekend','Weekday'])
 st.pyplot(fig)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
