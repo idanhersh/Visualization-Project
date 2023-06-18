@@ -1,3 +1,4 @@
+#import relevant packages
 import streamlit as st
 import pandas as pd
 import plotly.express as px
@@ -5,8 +6,10 @@ import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
+#Import dataset
 df = pd.read_csv('Sleep_Efficiency.csv')
 
+#Preprocessing
 # Fill NaN values in 'Alcohol consumption' column with 0.0
 df['Alcohol consumption'] = df['Alcohol consumption'].fillna(0.0)
 
@@ -48,10 +51,10 @@ labels = [1.0, 2.0, 3.0, 4.0, 5.0]
 df['Caffeine consumption'] = pd.cut(df['Caffeine consumption'], bins=ranges, labels=labels, right=False)
 df = df.dropna(subset=['Caffeine consumption'])
 
+#Create Dashboard
 st.set_page_config(page_title="How does sleep efficiency vary by age, sex, or other variables?",
                    page_icon=":bar_chart:")
 st.title('How does sleep efficiency vary by age, sex, or other variables?')
-
 
 #First Graph
 st.subheader('Sleep Efficiency by Wakeup Hour')
@@ -64,10 +67,8 @@ fig = px.box(filtered_data, x='Wakeup Hour', y='Sleep efficiency', color='Wakeup
             category_orders={'Wakeup Hour': sorted(df['Wakeup Hour'].unique())})
 fig.update_traces(hovertemplate="<b>Wakeup Hour:</b> %{x}<br><b>Sleep Efficiency:</b> %{y}<br><b>Wakeup Time:</b> %{customdata[0]}")
 
-
 # Show the plot
 st.plotly_chart(fig)
-
 
 #Second Graph
 st.subheader('Sleep Type by Average Percentage')
@@ -87,7 +88,6 @@ color_scale = ["purple", "skyblue", "orange"]
 fig = px.bar(avg_sleep_perc, y=avg_sleep_perc.index, x=avg_sleep_perc.values,
              labels={'x': 'Sleep Type', 'y': 'Average Percentage'},
              color=avg_sleep_perc.index, color_discrete_sequence=color_scale)
-
 
 # Customize the plot as needed
 fig.update_layout(yaxis_title='Sleep Type',
@@ -128,7 +128,7 @@ fig.update_layout(legend_title_text='Conditions')
 # Display the plot
 st.plotly_chart(fig, use_container_width=True)
 
-
+#Graph 4
 # Sleep efficiency comparison between weekdays and weekends
 st.subheader('Density Sleep Efficiency Comparison: Weekdays vs. Weekends')
 
